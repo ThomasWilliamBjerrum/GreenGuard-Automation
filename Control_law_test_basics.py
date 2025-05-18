@@ -25,6 +25,7 @@ A = np.array([[-k_p, 0, 0],
 eigenvalues = np.linalg.eigvals(A)
 print("Eigenvalues of the error dynamics:", eigenvalues)
 print("Real parts:", eigenvalues.real)
+print("Imaginary parts:", eigenvalues.imag)
 print("All real parts negative (stable)?", np.all(eigenvalues.real < 0))
 print("Convergence time constant (rho):", 1 / abs(min(eigenvalues.real)))
 if np.any(eigenvalues.imag != 0):
@@ -32,8 +33,8 @@ if np.any(eigenvalues.imag != 0):
 
 # Circle Parameters
 R = 1.0  # Radius of the unit circle (m)
-omega_c = 0.2  # Angular speed of the goal point on the circle (rad/s)
-v_nominal = omega_c * R  # Desired speed along the circle (m/s)
+omega_point = 0.2  # Angular speed of the goal point on the circle (rad/s)
+v_nominal = omega_point * R  # Desired speed along the circle (m/s)
 
 # Simulation Parameters
 dt = 0.01  # Time step (s)
@@ -54,7 +55,7 @@ trajectory[0, :] = state
 # Goal: Moving point on the unit circle
 def get_goal_point(t):
     # Goal moves along the circle at constant angular speed
-    theta_g = omega_c * t
+    theta_g = omega_point * t
     x_g = R * np.cos(theta_g)
     y_g = R * np.sin(theta_g)
     # Tangent direction for orientation
@@ -144,16 +145,16 @@ for i in range(num_steps):
 plt.figure(figsize=(10, 6))
 plt.subplot(3, 1, 1)
 plt.plot(t, rho_history, 'b-')
-plt.ylabel('Distance (m)')
+plt.ylabel('Rho Distance (m)')
 plt.title('Tracking Errors')
 plt.grid(True)
 plt.subplot(3, 1, 2)
 plt.plot(t, np.degrees(alpha_history), 'g-')
-plt.ylabel('Alpha (degrees)')
+plt.ylabel('Alpha Heading (degrees)')
 plt.grid(True)
 plt.subplot(3, 1, 3)
 plt.plot(t, np.degrees(beta_history), 'r-')
-plt.ylabel('Beta (degrees)')
+plt.ylabel('Beta Orientation (degrees)')
 plt.xlabel('Time (s)')
 plt.grid(True)
 plt.tight_layout()
