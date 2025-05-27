@@ -4,7 +4,7 @@ from scipy.optimize import minimize, differential_evolution
 from matplotlib.patches import Rectangle
 
 # Step 1: Define Rover Parameters
-m = 200  # Total mass in kg
+m = 100  # Total mass in kg
 g = 9.81  # Gravitational acceleration in m/s^2
 r = 0.25  # Wheel radius in m
 wheel_diameter = 0.5  # Wheel diameter in m
